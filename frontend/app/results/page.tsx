@@ -66,7 +66,7 @@ const [predictionError, setPredictionError] = useState<string | null>(null);
     try {
       const response = await fetch(
         `${
-          process.env.NEXT_PUBLIC_PREDICTION_API_URL || "http://127.0.0.1:5010/predict"
+         "https://dsylexia-final.onrender.com/predict"
         }`,
         {
           method: "POST",

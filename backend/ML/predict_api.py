@@ -3,6 +3,7 @@ from flask_cors import CORS
 from joblib import load
 import pandas as pd
 import numpy as np
+import os
 
 app = Flask(__name__)
 CORS(app)
@@ -91,5 +92,7 @@ def predict():
         traceback.print_exc()  # Print full stack trace
         return jsonify({"error": str(e)}), 500
 
+
 if __name__ == "__main__":
-    app.run(port=5010)
+    port = int(os.environ.get("PORT", 5000))  # Use Render's port or default to 5000
+    app.run(host="0.0.0.0", port=port)
