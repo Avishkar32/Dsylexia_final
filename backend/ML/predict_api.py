@@ -6,7 +6,8 @@ import numpy as np
 import os
 
 app = Flask(__name__)
-CORS(app)
+CORS(app, origins=["https://dsylexia-final.vercel.app"], methods=["GET", "POST", "OPTIONS"])
+
 
 # Load model and feature names
 model = load("hybrid_model.pkl")
