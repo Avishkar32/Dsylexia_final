@@ -13,6 +13,7 @@ import {
 } from "@/components/ui/card";
 import { Progress } from "@/components/ui/progress";
 import { getAllGameData } from "@/lib/game-data";
+import { Dialog } from "@headlessui/react";
 
 const WaveLoader = () => (
   <div className="flex flex-col items-center p-4">
@@ -47,6 +48,7 @@ export default function ResultsPage() {
 } | null>(null);
 const [predictionLoading, setPredictionLoading] = useState(false);
 const [predictionError, setPredictionError] = useState<string | null>(null);
+const [showModal, setShowModal] = useState(true);
 
 
 //error
@@ -311,6 +313,30 @@ const [predictionError, setPredictionError] = useState<string | null>(null);
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-cyan-500 to-blue-900 flex flex-col items-center justify-center p-4">
+      {/* Modal for server notice */}
+      <Dialog open={showModal} onClose={() => setShowModal(false)} className="fixed z-50 inset-0 flex items-center justify-center">
+        <div className="fixed inset-0 bg-black bg-opacity-40" aria-hidden="true" />
+        <div className="relative bg-white rounded-lg shadow-xl max-w-md mx-auto p-6 z-50">
+          <Dialog.Title className="text-lg font-bold mb-2 text-blue-800">
+            Please Note
+          </Dialog.Title>
+          <Dialog.Description className="mb-4 text-gray-700">
+            Please note that our machine learning model is hosted on a free tier server (Render). Due to this, the server may go into sleep mode after a period of inactivity. When a new request is made, the server takes some time to restart, which may result in a noticeable delay in receiving your result.
+            <br /><br />
+            We appreciate your patience and understanding!
+          </Dialog.Description>
+          <div className="flex justify-end">
+            <button
+              className="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700"
+              onClick={() => setShowModal(false)}
+              autoFocus
+            >
+              OK
+            </button>
+          </div>
+        </div>
+      </Dialog>
+      {/* End Modal */}
       <Card className="max-w-3xl w-full border-4 border-cyan-300 bg-white/90 backdrop-blur-sm shadow-xl">
         <CardHeader className="text-center">
           <CardTitle className="text-3xl font-bold text-blue-800">
